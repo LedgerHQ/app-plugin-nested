@@ -5,7 +5,7 @@ import { parseEther, parseUnits, RLP } from "ethers/lib/utils";
 import { ethers } from "ethers";
 import ledgerService from "@ledgerhq/hw-app-eth/lib/services/ledger"
 
-const transactionUploadDelay = 90000;
+const transactionUploadDelay = 900000;
 
 const sim_options_nano = {
   ...DEFAULT_START_OPTIONS,
@@ -21,9 +21,9 @@ const NANOS_ETH_PATH = Resolve('elfs/ethereum_nanos.elf');
 const NANOX_ETH_PATH = Resolve('elfs/ethereum_nanox.elf');
 const NANOSP_ETH_PATH = Resolve('elfs/ethereum_nanosp.elf');
 
-const NANOS_PLUGIN_PATH = Resolve('elfs/nested_nanos.elf');
-const NANOX_PLUGIN_PATH = Resolve('elfs/nested_nanox.elf');
-const NANOSP_PLUGIN_PATH = Resolve('elfs/nested_nanosp.elf');
+const NANOS_PLUGIN_PATH = Resolve('elfs/plugin_nanos.elf');
+const NANOX_PLUGIN_PATH = Resolve('elfs/plugin_nanox.elf');
+const NANOSP_PLUGIN_PATH = Resolve('elfs/plugin_nanosp.elf');
 
 const SPECULOS_ADDRESS = '0xFE984369CE3919AA7BB4F431082D027B4F8ED70C';
 const RANDOM_ADDRESS = '0xaaaabbbbccccddddeeeeffffgggghhhhiiiijjjj'
@@ -31,7 +31,7 @@ const RANDOM_ADDRESS = '0xaaaabbbbccccddddeeeeffffgggghhhhiiiijjjj'
 const NFT_EXPLORER_BASE_URL = "https://nft.api.live.ledger.com/v1/ethereum"
 const PLUGIN_BASE_URL = "https://cdn.live.ledger.com"
 
-const nano_models: DeviceModel[] = [
+const nano_models = [
   { name: 'nanos', letter: 'S', path: NANOS_PLUGIN_PATH, eth_path: NANOS_ETH_PATH },
   { name: 'nanox', letter: 'X', path: NANOX_PLUGIN_PATH, eth_path: NANOX_ETH_PATH },
   { name: 'nanosp', letter: 'SP', path: NANOSP_PLUGIN_PATH, eth_path: NANOSP_ETH_PATH }
@@ -139,7 +139,8 @@ function processTest(device, step, contractName, testLabel, testDirSuffix, unsig
         testNetwork,
         unsignedTx
       );
-    })
+    }),
+    130000
   );
 }
 
