@@ -5,8 +5,7 @@
 // `NULL`, this means the ethereum app didn't find any info regarding the
 // requested tokens!
 
-void handle_provide_token(void *parameters) {
-    ethPluginProvideInfo_t *msg = (ethPluginProvideInfo_t *) parameters;
+void handle_provide_token(ethPluginProvideInfo_t *msg) {
     context_t *context = (context_t *) msg->pluginContext;
 
     // The Ethereum App found the information for the requested token!
