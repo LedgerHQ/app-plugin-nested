@@ -6,7 +6,6 @@ bool msg_display_address_ui(ethQueryContractUI_t *msg, uint8_t *address) {
     msg->msg[1] = 'x';
     return getEthAddressStringFromBinary((uint8_t *) address,
                                          (char *) msg->msg + 2,
-                                         msg->pluginSharedRW->sha3,
                                          0);
 }
 
