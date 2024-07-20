@@ -1,7 +1,5 @@
 #pragma once
 
-#include "debug.h"
-#include "eth_internals.h"
 #include "eth_plugin_interface.h"
 #include <stdint.h>
 #include <string.h>
