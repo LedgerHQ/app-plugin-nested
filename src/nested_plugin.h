@@ -1,7 +1,5 @@
 #pragma once
 
-#include "debug.h"
-#include "eth_internals.h"
 #include "eth_plugin_interface.h"
 #include <stdint.h>
 #include <string.h>
@@ -211,9 +209,9 @@ typedef struct context_t {
     uint8_t booleans;
 } context_t;
 
-// Piece of code that will check that the above structure is not bigger than 5
-// * 32. Do not remove this check.
-_Static_assert(sizeof(context_t) <= 5 * 32, "Structure of parameters too big.");
+// Check that the plugin context structure will fit in the ethereum allocated memory.
+// for us Do not remove!
+ASSERT_SIZEOF_PLUGIN_CONTEXT(context_t);
 
 #define copy_number(parameter, T)              \
     _Generic((T), uint32_t *                   \
@@ -229,22 +227,15 @@ _Static_assert(sizeof(context_t) <= 5 * 32, "Structure of parameters too big.");
              : add_in_uint8, default     \
              : add_type_error)(T, to_add)
 
-void handle_provide_parameter(void *parameters);
-void handle_query_contract_ui(void *parameters);
-void handle_init_contract(void *parameters);
-void handle_finalize(void *parameters);
-void handle_provide_token(void *parameters);
-void handle_query_contract_id(void *parameters);
-
 void parse_order(ethPluginProvideParameter_t *msg, context_t *context);
 void parse_batched_input_orders(ethPluginProvideParameter_t *msg, context_t *context);
 void parse_batched_output_orders(ethPluginProvideParameter_t *msg, context_t *context);
 
-void msg_display_address_ui(ethQueryContractUI_t *msg, uint8_t *address);
-void msg_ticker_or_address(ethQueryContractUI_t *msg, context_t *context, int flag);
-void msg_2tickers_ui(ethQueryContractUI_t *msg, context_t *context);
-void msg_number_of_tokens(ethQueryContractUI_t *msg, context_t *context, int flag);
-void msg_amount_or_address_ui(ethQueryContractUI_t *msg, context_t *context);
+bool msg_display_address_ui(ethQueryContractUI_t *msg, uint8_t *address);
+bool msg_ticker_or_address(ethQueryContractUI_t *msg, context_t *context, int flag);
+bool msg_2tickers_ui(ethQueryContractUI_t *msg, context_t *context);
+bool msg_number_of_tokens(ethQueryContractUI_t *msg, context_t *context, int flag);
+bool msg_amount_or_address_ui(ethQueryContractUI_t *msg, context_t *context);
 
 bool copy_number_uint8(const uint8_t *parameter, uint8_t *target);
 bool copy_type_error(const uint8_t *parameter, void *target);
